@@ -1,0 +1,3 @@
+### 게임카드 전체 리스트 조회
+GET http://localhost:8080/v1/games
+Content-Type: application/json

@@ -1,0 +1,19 @@
+### 게임카드 등록
+POST http://localhost:8080/v1/game-cards
+Content-Type: application/json
+
+{
+  "memberId": 1,
+  "gameId": 1,
+  "title": "샘플타이틀",
+  "serialNumber": 123456,
+  "price": 100.00
+}
+
+### 게임카드 삭제
+DELETE http://localhost:8080/v1/game-cards/1
+Content-Type: application/json
+
+### 회원 소유 게임카드 전체 리스트 조회
+GET http://localhost:8080/v1/game-cards/owned?memberId=1
+Content-Type: application/json
