@@ -1,23 +1,19 @@
-description = "api server module"
+bootJar.enabled = false
+jar.enabled = true
+
+description = "domain module"
 
 dependencies {
 
-    implementation project(':user-domain')
-
-    implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'com.querydsl:querydsl-core'
     implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation "org.hibernate:hibernate-validator:6.2.1.Final"
 
 
     annotationProcessor("com.querydsl:querydsl-apt:5.0.0:jakarta")
     annotationProcessor('jakarta.persistence:jakarta.persistence-api')
     annotationProcessor('jakarta.annotation:jakarta.annotation-api')
-
-    runtimeOnly 'com.mysql:mysql-connector-j:8.3.0'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
