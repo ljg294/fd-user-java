@@ -2,3 +2,4 @@ rootProject.name = 'user'
 
 include(":user-api-server")
 include(":user-domain")
+include(":user-common")
