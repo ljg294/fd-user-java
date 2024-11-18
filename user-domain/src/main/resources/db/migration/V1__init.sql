@@ -1,6 +1,4 @@
-DROP TABLE IF EXISTS game_card;
-DROP TABLE IF EXISTS member;
-DROP TABLE IF EXISTS game;
+DROP TABLE IF EXISTS `user`;
 
 #-----------------------------------------------------------------------------------------------------------------------
 #-- Table 명 : user (사용자)
@@ -17,9 +15,9 @@ CREATE TABLE `user`
     signup_date                      DATE                        NOT NULL                         COMMENT '가입일자',
     delete_yn                        varchar(1)                  NOT NULL                         COMMENT '삭제여부',
     created_user_id                  BIGINT                      NOT NULL                         COMMENT '등록자ID',
-    created_datetime                 DATETIME                    NOT NULL                         COMMENT '등록일시',
+    created_date_time                DATETIME                    NOT NULL                         COMMENT '등록일시',
     modified_user_id                 BIGINT                      NOT NULL                         COMMENT '수정자ID',
-    modified_datetime                DATETIME                    NOT NULL                         COMMENT '수정일시',
+    modified_date_time               DATETIME                    NOT NULL                         COMMENT '수정일시',
 
     CONSTRAINT pk_user PRIMARY KEY (user_id),
     CONSTRAINT chk_user_name CHECK (LENGTH(name) BETWEEN 2 AND 100 AND TRIM(name) <> ''),
