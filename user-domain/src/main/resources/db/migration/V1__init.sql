@@ -45,3 +45,25 @@ CREATE TABLE diner
     CONSTRAINT fk_diner_member FOREIGN KEY (owner_member_id) REFERENCES `member`(member_id),
     CONSTRAINT chk_diner_delete_yn CHECK (delete_yn IN ('Y', 'N')),
 ) ENGINE = INNODB DEFAULT CHARSET=utf8mb4 COMMENT='음식점';
+
+#-----------------------------------------------------------------------------------------------------------------------
+#-- Table 명 : diner_schedule (음식점 스케줄)
+#-----------------------------------------------------------------------------------------------------------------------
+CREATE TABLE `diner_schedule`
+(
+    diner_schedule_id                BIGINT                      NOT NULL         AUTO_INCREMENT  COMMENT '음식점 스케줄 ID',
+    diner_id                         BIGINT                      NOT NULL                         COMMENT '음식점 ID',
+    day_of_week                      VARCHAR(3)                  NOT NULL                         COMMENT '요일',
+    open_time                        TIME                        NOT NULL                         COMMENT '오픈 시간',
+    close_time                       TIME                        NOT NULL                         COMMENT '종료 시간',
+    delete_yn                        VARCHAR(1)                  NOT NULL         DEFAULT 'N'     COMMENT '삭제 여부',
+    created_user_id                  BIGINT                      NOT NULL                         COMMENT '등록자 ID',
+    created_date_time                DATETIME                    NOT NULL                         COMMENT '등록 일시',
+    modified_user_id                 BIGINT                      NOT NULL                         COMMENT '수정자 ID',
+    modified_date_time               DATETIME                    NOT NULL                         COMMENT '수정 일시',
+
+    PRIMARY KEY (diner_schedule_id),
+    CONSTRAINT fk_diner_schedule_diner FOREIGN KEY (diner_id) REFERENCES `diner`(diner_id),
+    CONSTRAINT chk_diner_day_of_week CHECK (day_of_week IN ('MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN')),
+    CONSTRAINT chk_diner_schedule_delete_yn CHECK (delete_yn IN ('Y', 'N')),
+) ENGINE = INNODB DEFAULT CHARSET=utf8mb4 COMMENT='음식점 스케줄';
