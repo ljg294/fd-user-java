@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS member;
 CREATE TABLE member
 (
     member_id                        BIGINT                      NOT NULL         AUTO_INCREMENT  COMMENT '회원ID',
+    member_type                      VARCHAR(10)                 NOT NULL                         COMMENT '회원 유형',
     email                            VARCHAR(255)                NOT NULL         UNIQUE          COMMENT '이메일',
     password                         VARCHAR(255)                NOT NULL                         COMMENT '비밀번호',
     name                             VARCHAR(100)                NOT NULL                         COMMENT '이름',
@@ -20,6 +21,7 @@ CREATE TABLE member
     modified_date_time               DATETIME                    NOT NULL                         COMMENT '수정일시',
 
     CONSTRAINT pk_member PRIMARY KEY (member_id)
+    CONSTRAINT chk_member_member_type CHECK (member_type IN ('CUSTOMER', 'CHEF')),
     CONSTRAINT chk_member_email CHECK (email REGEXP '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'),
     CONSTRAINT chk_member_name CHECK (LENGTH(name) BETWEEN 2 AND 100 AND TRIM(name) <> ''),
     CONSTRAINT chk_member_gender CHECK (gender IN ('MALE', 'FEMALE')),

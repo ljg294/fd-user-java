@@ -1,6 +1,7 @@
 package com.fitdine.user.domain.repository;
 
 import com.fitdine.user.common.code.Gender;
+import com.fitdine.user.common.code.MemberType;
 import com.fitdine.user.domain.DomainIntegrationTest;
 import com.fitdine.user.domain.entity.MemberEntity;
 import org.junit.jupiter.api.AfterEach;
@@ -26,6 +27,7 @@ class MemberRepositoryTest {
     void setUp() {
         // Arrange
         member = MemberEntity.builder()
+                .memberType(MemberType.CUSTOMER)
                 .email("test@example.com")
                 .password("password123")
                 .name("John Doe")
@@ -49,6 +51,7 @@ class MemberRepositoryTest {
 
         // Assert
         assertThat(savedMember.getMemberId()).isNotNull();
+        assertThat(savedMember.getMemberType()).isEqualTo(MemberType.CUSTOMER);
         assertThat(savedMember.getEmail()).isEqualTo("test@example.com");
         assertThat(savedMember.getName()).isEqualTo("John Doe");
         assertThat(savedMember.getAge()).isEqualTo((byte) 25);
@@ -60,7 +63,7 @@ class MemberRepositoryTest {
     void findByIdSuccessful() {
         // Arrange
         MemberEntity savedMember = memberRepository.save(member);
-        
+
         // Act
         Optional<MemberEntity> retrievedMember = memberRepository.findById(savedMember.getMemberId());
 
@@ -78,11 +81,10 @@ class MemberRepositoryTest {
         MemberEntity savedMember = memberRepository.save(member);
 
         // Act
-
         savedMember.update(
                 savedMember.getEmail(),
                 savedMember.getPassword(),
-                updatedName, //update
+                updatedName, // update
                 savedMember.getAge(),
                 savedMember.getGender(),
                 savedMember.getMobile());

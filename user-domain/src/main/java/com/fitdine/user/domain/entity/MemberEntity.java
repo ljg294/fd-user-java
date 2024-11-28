@@ -1,6 +1,7 @@
 package com.fitdine.user.domain.entity;
 
 import com.fitdine.user.common.code.Gender;
+import com.fitdine.user.common.code.MemberType;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -19,6 +20,9 @@ public class MemberEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
+
+    @Column(name = "member_type", nullable = false, columnDefinition = "varchar(10) COMMENT '회원 유형'")
+    private MemberType memberType;
 
     @Column(name = "email", nullable = false, unique = true, columnDefinition = "varchar(255) COMMENT '이메일'")
     private String email;
@@ -44,6 +48,7 @@ public class MemberEntity extends BaseEntity {
 
     @Builder
     public MemberEntity(Long memberId,
+                        MemberType memberType,
                         String email,
                         String password,
                         String name,
@@ -52,6 +57,7 @@ public class MemberEntity extends BaseEntity {
                         String mobile,
                         LocalDate signupDate) {
         this.memberId = memberId;
+        this.memberType = memberType;
         this.email = email;
         this.password = password;
         this.name = name;
@@ -62,7 +68,8 @@ public class MemberEntity extends BaseEntity {
     }
 
     @Builder(builderClassName = "createBuilder", builderMethodName = "createBuilder")
-    public MemberEntity(String email,
+    public MemberEntity(MemberType memberType,
+                        String email,
                         String password,
                         String name,
                         Byte age,
@@ -70,8 +77,9 @@ public class MemberEntity extends BaseEntity {
                         String mobile,
                         LocalDate signupDate) {
 
-        validateAttributesNotNull(email, password, name, signupDate);
+        validateAttributesNotNull(memberType, email, password, name, signupDate);
 
+        this.memberType = memberType;
         this.email = email;
         this.password = password;
         this.name = name;
@@ -99,10 +107,12 @@ public class MemberEntity extends BaseEntity {
         this.mobile = mobile;
     }
 
-    private void validateAttributesNotNull(String email,
+    private void validateAttributesNotNull(MemberType memberType,
+                                           String email,
                                            String password,
                                            String name,
                                            LocalDate signupDate) {
+        Assert.notNull(memberType, "memberType must not be null");
         Assert.notNull(email, "email must not be null");
         Assert.notNull(password, "password must not be null");
         Assert.notNull(name, "name must not be null");
